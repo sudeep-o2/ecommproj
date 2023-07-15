@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+{% load static %}
+
+{% block main%}
+<h1>Product Detail</h1>
+
+<div style="text-align: center;">
+    <div><img src="{{product_detail.image.url}}" alt="" width="200px" height="200px" ></div>
+    <div><h2>  {{product_detail.title}} - ₹ {{product_detail.price}} </h2></div>
+    <div><p> {{product_detail.description}} </p></div>
+</div>
+{% endblock %}

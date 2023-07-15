@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% load static %}
+
+{% block main%}
+<h1>Products</h1>
+{% for prod in category_products %}
+<div class="container my-5">
+<div class="row">
+<div class="col-sm-3"><a href="{% url 'product-detail' prod.id %}"><h2>{{prod.title}}</h2></a></div>
+
+<div class="col-sm-9"><img src="{{prod.image.url}}" alt="" width="200px" height="200px"></div>
+
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

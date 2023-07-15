@@ -10,7 +10,13 @@
     <link rel="stylesheet" href="{% static 'ecommapp/css/owl.carousel.min.css'  %}">
     <link rel="stylesheet" href="{% static 'ecommapp/css/all.min.css'  %}">
 
-    <title>Cars | {% block title %} {% endblock title %} </title>
+    <style>
+        
+          
+            
+    </style>
+
+    <title>Diary products | {% block title %} {% endblock title %} </title>
 </head>
 <body>
 
@@ -35,9 +41,14 @@
                         Products
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Tata</a></li>
-                        <li><a class="dropdown-item" href="#">Maruti Suzuki</a></li>
-                        <li><a class="dropdown-item" href="#">Ford</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'milk' %}">Milk</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'curd' %}">Curd</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'paneer' %}">Paneer</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'sweets' %}">Sweets</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'milkshake' %}">Milkshake</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'icecream' %}">Icecream</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'buttermilk' %}">Buttermilk</a></li>
+                        <li><a class="dropdown-item" href="{% url 'categories' 'lassi' %}">Lassi</a></li>
                     </ul>
                 </li>
 
@@ -97,19 +108,27 @@
         </div>
         </nav>
       
-      
+        {% block banner%}
 
+
+        {% endblock %}
+
+
+        {% block info%}
+
+
+        {% endblock %}
 
       
      
 
-      {% block start%}
+        {% block main%}
 
 
-      {% endblock %}
+        {% endblock %}
 
 
-      <footer class="container-fluid fixed-bottom" >
+      <footer class="container-fluid bg-dark text-white fixed-bottom text-center p-2 mt-5" >
         copyright :2023 
       </footer>
     

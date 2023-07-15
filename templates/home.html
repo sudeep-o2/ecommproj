@@ -4,10 +4,79 @@
 Home
 {% endblock title %}
 
-{% block start %}
+{% block banner%}
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{% static 'ecommapp/images/banner/banner5.jpg' %}" class="d-block w-100" alt="...">
+      </div>
+
+      <div class="carousel-item ">
+        <img src="{% static 'ecommapp/images/banner/nandini.jpeg' %}" class="d-block w-100" alt="...">
+      </div>
+
+     
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
 
-<h1>Lord</h1>
+{% endblock %}
+
+{% block info%}
+
+<div class="=container">
+    <div class="row bg-dark text-center p-5 text-white">
+        <h2>Products</h2>
+        <small>
+            The Karnataka Milk Federation (KMF) is a dairy cooperative from Karnataka, India, which sells products such as milk, curds, ghee, butter, ice cream, chocolates, and sweets under the brand name Nandini. It is a federation of milk producers under the ownership of Ministry of Cooperation, Government of Karnataka. Almost every district in Karnataka has milk producing co-operatives. The milk is collected from farmers who are its members, processed and sold in the market under the Nandini brand. It is the second-largest milk co-operative in India after Amul.
+        </small>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+
+{% block main%}
+
+
+    <div class="container">
+        <h2 class="text-center">Diary Products</h2>
+        <br><br>
+        <div class="row">
+          <div class="col-lg-4">
+            <img src="{% static 'ecommapp/images/product/paneer.png' %}" alt="" height="350px">
+          </div>
+
+          <div class="col-lg-4" >
+            <img src="{% static 'ecommapp/images/product/peda.jpg' %}" alt="" height="280px">
+
+          </div>
+
+          <div class="col-lg-4" >
+            <img src="{% static 'ecommapp/images/product/milk.webp' %}" alt="" width="350px">
+
+          </div>
+
+          <div class="col-lg-4" >
+            <img src="{% static 'ecommapp/images/product/chocobar.png' %}" alt="" height="300px" style="margin-left: 45px;">
+
+          </div>
+
+        </div>
+
+       
+    </div>
 
 
 {% endblock %}
