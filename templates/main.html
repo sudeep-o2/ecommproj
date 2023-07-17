@@ -53,7 +53,7 @@
                 </li>
 
                 <li class="nav-item">
-                <a class="nav-link" href="#">About Us</a>
+                <a class="nav-link" href="{% url 'about' %}">About Us</a>
                 </li>
 
                 <li class="nav-item">
@@ -70,18 +70,23 @@
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">User</a>
+                    <a class="nav-link active" aria-current="page" href=""> {{request.user}} </a>
                 </li>
+                {% endif %}
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Profile
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'profile' %}">profile</a></li>
                         <li><a class="dropdown-item" href="#">Orders</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                        <li><a class="dropdown-item" href="#">Change password</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change password</a></li>
+                        {% endif %}
                     </ul>
                 </li>
 
@@ -93,13 +98,15 @@
                     <a class="nav-link" href="#">wishlist</a>
                 </li>
 
+                {% if request.user.is_authenticated == False %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
+                {% endif %}
 
 
 

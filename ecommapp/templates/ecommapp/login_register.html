@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+
+
+{% block main%}
+
+
+<div class="container">
+{% if stat == 'login' %}
+<div class="row my-3" style="text-align: center;">
+    <h2>Login</h2>
+    <hr>
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        Username:<input type="text" name="username"><br><br>
+        Password:<input type="password" name="password"><br><br>
+        <button type="submit">Login</button>
+    </form>
+</div>
+</div>
+
+{% else %}
+
+<div>
+    <h2>Register</h2>
+    <hr>
+<div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Register</button>
+
+    </form>
+
+</div>
+</div>
+</div>
+{% endif %}
+
+
+
+{% endblock %}

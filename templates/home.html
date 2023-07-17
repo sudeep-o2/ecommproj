@@ -55,21 +55,21 @@ Home
         <br><br>
         <div class="row">
           <div class="col-lg-4">
-            <img src="{% static 'ecommapp/images/product/paneer.png' %}" alt="" height="350px">
+            <a href="{% url 'categories' 'paneer' %}"><img src="{% static 'ecommapp/images/product/paneer.png' %}" alt="" height="350px"></a>
           </div>
 
           <div class="col-lg-4" >
-            <img src="{% static 'ecommapp/images/product/peda.jpg' %}" alt="" height="280px">
-
-          </div>
-
-          <div class="col-lg-4" >
-            <img src="{% static 'ecommapp/images/product/milk.webp' %}" alt="" width="350px">
+            <a href="{% url 'categories' 'sweets' %}"><img src="{% static 'ecommapp/images/product/peda.jpg' %}" alt="" height="280px"></a>
 
           </div>
 
           <div class="col-lg-4" >
-            <img src="{% static 'ecommapp/images/product/chocobar.png' %}" alt="" height="300px" style="margin-left: 45px;">
+            <a href="{% url 'categories' 'milk' %}"><img src="{% static 'ecommapp/images/product/milk.webp' %}" alt="" width="350px"></a>
+
+          </div>
+
+          <div class="col-lg-4" >
+            <a href="{% url 'categories' 'icecream' %}"><img src="{% static 'ecommapp/images/product/chocobar.png' %}" alt="" height="300px" style="margin-left: 45px;"></a>
 
           </div>
 

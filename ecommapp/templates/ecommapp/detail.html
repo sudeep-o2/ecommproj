@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% extends 'main.html' %}
 {% load static %}
 
 {% block main%}
@@ -9,4 +9,12 @@
     <div><h2>  {{product_detail.title}} - ₹ {{product_detail.price}} </h2></div>
     <div><p> {{product_detail.description}} </p></div>
 </div>
+
+<div style="text-align: center;">
+    <button type="submit" class="btn btn-success">Add to cart</button>
+  </div>
+    <br>
+    <div style="text-align: center;"><a href="#"  class="btn btn-info">Buynow
+    </a>
+    </div>
 {% endblock %}
