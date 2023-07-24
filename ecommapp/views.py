@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
-from . models import Product,Customer
+from . models import Product,Customer,Cart
 from . forms import CustomUserForm,CustomerForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 # Create your views here.
 def home(request):
@@ -108,3 +109,26 @@ def updateAdress(request,pk):
 
     context={'form':form}
     return render(request,'ecommapp/updateadress.html',context)
+
+def add_to_cart(request):
+    user=request.user
+    product_id=request.GET.get('prod_id')
+    product=Product.objects.get(id=product_id)
+    Cart.objects.create(
+        user=user,
+        product=product,
+    )
+   
+    return redirect('cart')
+
+
+
+def show_cart(request):
+    user=request.user
+    cart=Cart.objects.filter(user=user)
+    amount=0
+    for pr in cart:
+        val=pr.quantity * pr.product.price
+        amount+=val
+    totalamount=amount
+    return render(request,'ecommapp/addtocart.html',locals())

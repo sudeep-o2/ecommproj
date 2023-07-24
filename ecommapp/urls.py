@@ -16,6 +16,8 @@ urlpatterns = [
     path('profile/',views.profile,name='profile'),
     path('adress/',views.adress,name='adress'),
     path('updateadress/<str:pk>/',views.updateAdress,name='updateadress'),
+    path('add-to-cart/',views.add_to_cart,name='add-to-cart'),
+    path('cart/',views.show_cart,name='cart'),
 
     path('passwordchange/',auth_view.PasswordChangeView.as_view(template_name='ecommapp/changepassword.html',form_class=MyPasswordChangeForm,success_url='/passwordchangedone'),name='passwordchange'),
     path('passwordchangedone/',auth_view.PasswordChangeDoneView.as_view(template_name='ecommapp/passwordchangedone.html'),name='passwordchangedone'),

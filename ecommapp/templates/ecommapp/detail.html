@@ -11,10 +11,13 @@
 </div>
 
 <div style="text-align: center;">
+  <form action="/add-to-cart" >
+    <input type="hidden" name="prod_id" value={{product_detail.id}}>
     <button type="submit" class="btn btn-success">Add to cart</button>
+  </form>
   </div>
     <br>
-    <div style="text-align: center;"><a href="#"  class="btn btn-info">Buynow
+    <div style="text-align: center;"><a href="{% url 'cart' %}" class="btn btn-info">Buynow
     </a>
     </div>
 {% endblock %}
