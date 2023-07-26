@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render,redirect
 from . models import Product,Customer,Cart
 from . forms import CustomUserForm,CustomerForm
@@ -122,7 +123,6 @@ def add_to_cart(request):
     return redirect('cart')
 
 
-
 def show_cart(request):
     user=request.user
     cart=Cart.objects.filter(user=user)
@@ -132,3 +132,71 @@ def show_cart(request):
         amount+=val
     totalamount=amount
     return render(request,'ecommapp/addtocart.html',locals())
+
+def plus_cart(request):
+    if request.method=='GET':
+        prod_id=request.GET.get('prod_id')
+        c = Cart.objects.get(Q(product__id=prod_id) & Q(user=request.user))
+        c.quantity+=1
+        c.save()
+        cart=Cart.objects.filter(user=request.user)
+        amount=0
+        for p in cart:
+            value=p.quantity * p.product.price
+            amount+=value
+        totalamount=amount
+        data={
+            'quantity':c.quantity,
+            'amount':amount,
+            'totalamount':totalamount,
+        }
+
+    return JsonResponse(data)
+
+
+def minus_cart(request):
+    if request.method=='GET':
+        prod_id=request.GET.get('prod_id')
+        c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+        c.quantity-=1
+        c.save()
+        cart=Cart.objects.filter(user=request.user)
+        amount=0
+        for p in cart:
+            val=p.quantity * p.product.price
+            amount+=val
+        totalamount=amount
+        data={
+            'quantity':c.quantity,
+            'amount':amount,
+            'totalamount':totalamount,
+        }
+    return JsonResponse(data)
+
+def remove_cart(request):
+    if request.method=='GET':
+        prod_id=request.GET.get('prod_id')
+        c=Cart.objects.get(Q(product=prod_id) & Q(user=request.user))
+        c.delete()
+        
+        cart=Cart.objects.filter(user=request.user)
+        amount=0
+        for p in cart:
+            val=p.quantity * p.product.price
+            amount+=val
+        totalamount=amount
+        data={
+            'amount':amount,
+            'totalamount':totalamount,
+        }
+    return JsonResponse(data)
+
+def checkout(request):
+    add=Customer.objects.filter(user=request.user)
+    cart_items=Cart.objects.filter(user=request.user)
+    amount=0
+    for p in cart_items:
+        val=p.quantity * p.product.price
+        amount+=val
+    totalamount=amount
+    return render(request,'ecommapp/checkout.html',locals())

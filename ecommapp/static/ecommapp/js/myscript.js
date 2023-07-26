@@ -1,4 +1,4 @@
-$('#slider1, #slider2, #slider3').owlCarousel({
+/*$('#slider1, #slider2, #slider3').owlCarousel({
     loop: true,
     margin: 20,
     responsiveClass: true,
@@ -20,9 +20,9 @@ $('#slider1, #slider2, #slider3').owlCarousel({
             autoplay: true,
         }
     }
-})
+})*/
 
-$('.plus-cart').click(function(){
+ $('.plus-cart').click(function(){
     var id=$(this).attr("pid").toString();
     var eml=this.parentNode.children[2] 
     $.ajax({
@@ -37,7 +37,11 @@ $('.plus-cart').click(function(){
             document.getElementById("totalamount").innerText=data.totalamount
         }
     })
-})
+}) 
+
+
+
+
 
 $('.minus-cart').click(function(){
     var id=$(this).attr("pid").toString();

@@ -19,6 +19,13 @@ urlpatterns = [
     path('add-to-cart/',views.add_to_cart,name='add-to-cart'),
     path('cart/',views.show_cart,name='cart'),
 
+    path('pluscart/',views.plus_cart,name='pluscart'),
+    path('minuscart/',views.minus_cart,name='minuscart'),
+    path('removecart/',views.remove_cart,name='removecart'),
+
+    path('checkout/',views.checkout,name='checkout'),
+    
+
     path('passwordchange/',auth_view.PasswordChangeView.as_view(template_name='ecommapp/changepassword.html',form_class=MyPasswordChangeForm,success_url='/passwordchangedone'),name='passwordchange'),
     path('passwordchangedone/',auth_view.PasswordChangeDoneView.as_view(template_name='ecommapp/passwordchangedone.html'),name='passwordchangedone'),
 ]
