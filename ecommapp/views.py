@@ -1,11 +1,13 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from . models import Product,Customer,Cart
+from . models import Product,Customer,Cart,Payment,OrderPlaced
 from . forms import CustomUserForm,CustomerForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+import razorpay
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -199,4 +201,60 @@ def checkout(request):
         val=p.quantity * p.product.price
         amount+=val
     totalamount=amount
+
+    razoramount=int(totalamount * 100)
+
+    client = razorpay.Client(auth=(settings.RAZOR_KEY_ID, settings.RAZOR_KEY_SECRET))
+
+    data = { "amount": razoramount, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment_response = client.order.create(data=data)
+    print(payment_response)
+    #{'id': 'order_MIjRRkBjYiXtrP', 'entity': 'order', 'amount': 45600, 'amount_paid': 0, 'amount_due': 45600, 'currency': 'INR', 'receipt': 'order_rcptid_11', 'offer_id': None, 'status': 'created', 'attempts': 0, 'notes': [], 'created_at': 1690440457}
+
+    order_status=payment_response['status']
+    if order_status == 'created':
+        payment=Payment.objects.create(
+            user=request.user,
+            amount=totalamount,
+            razorpay_order_id=payment_response['id'],
+            razorpay_payment_status=order_status
+
+        )
+        payment.save()
+
     return render(request,'ecommapp/checkout.html',locals())
+
+
+def payment_completed(request):
+    
+    order_id=request.GET.get('order_id')
+    payment_id=request.GET.get('payment_id')
+    cust_id=request.GET.get('cust_id')
+    print(order_id,payment_id,cust_id)
+    
+    payment = Payment.objects.get(razorpay_order_id=order_id)
+    payment.razorpay_payment_id=payment_id
+    payment.paid=True
+    payment.save()
+
+    #for order
+    cust=Customer.objects.get(id=cust_id)
+
+    cart=Cart.objects.filter(user=request.user)
+    for c in cart:
+        OrderPlaced.objects.create(
+            user=request.user,
+            customer=cust,
+            product=c.product,
+            quantity=c.quantity,
+            payment=payment,
+        )
+        c.delete()
+    return redirect('orders') 
+
+def orders(request):
+    pass
+
+    return render(request,'ecommapp/orders.html')
+
+

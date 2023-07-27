@@ -24,6 +24,9 @@ urlpatterns = [
     path('removecart/',views.remove_cart,name='removecart'),
 
     path('checkout/',views.checkout,name='checkout'),
+    path('paymentcompleted/',views.payment_completed,name='paymentcompleted'),
+    path('orders/',views.orders,name='orders'),
+    
     
 
     path('passwordchange/',auth_view.PasswordChangeView.as_view(template_name='ecommapp/changepassword.html',form_class=MyPasswordChangeForm,success_url='/passwordchangedone'),name='passwordchange'),

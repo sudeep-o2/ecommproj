@@ -127,3 +127,6 @@ MEDIA_ROOT= BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RAZOR_KEY_ID = 'rzp_test_ORPFvZJTtPLxBY'
+RAZOR_KEY_SECRET ='Su3gQ0Fkk9WO410bFkVbkqKx'
