@@ -11,11 +11,22 @@ from django.conf import settings
 
 # Create your views here.
 def home(request):
+    
+    # for cart caount in navbar
+    cart_count=0
+    if request.user.is_authenticated:
+        cart_count=len(Cart.objects.filter(user=request.user))
+    #
 
-    return render(request,'home.html')
+    return render(request,'home.html',locals())
 
 def aboutus(request):
-    return render(request,'ecommapp/about.html')
+    # for cart caount in navbar
+    cart_count=0
+    if request.user.is_authenticated:
+        cart_count=len(Cart.objects.filter(user=request.user))
+    #
+    return render(request,'ecommapp/about.html',locals())
 
 
 def loginView(request):
@@ -68,6 +79,12 @@ def productDetail(request,pk):
 
 def profile(request):
 
+    # for cart caount in navbar
+    cart_count=0
+    if request.user.is_authenticated:
+        cart_count=len(Cart.objects.filter(user=request.user))
+    #
+
     form=CustomerForm()
 
     if request.method=='POST':
@@ -83,7 +100,7 @@ def profile(request):
         )
         return redirect('profile')
 
-    context={'form':form}
+    context={'form':form,'cart_count':cart_count}
     return render(request,'ecommapp/profile.html',context)
 
 def adress(request):
@@ -211,12 +228,14 @@ def checkout(request):
     print(payment_response)
     #{'id': 'order_MIjRRkBjYiXtrP', 'entity': 'order', 'amount': 45600, 'amount_paid': 0, 'amount_due': 45600, 'currency': 'INR', 'receipt': 'order_rcptid_11', 'offer_id': None, 'status': 'created', 'attempts': 0, 'notes': [], 'created_at': 1690440457}
 
+    order_id=payment_response['id']
     order_status=payment_response['status']
+
     if order_status == 'created':
         payment=Payment.objects.create(
             user=request.user,
             amount=totalamount,
-            razorpay_order_id=payment_response['id'],
+            razorpay_order_id=order_id,
             razorpay_payment_status=order_status
 
         )
@@ -230,7 +249,7 @@ def payment_completed(request):
     order_id=request.GET.get('order_id')
     payment_id=request.GET.get('payment_id')
     cust_id=request.GET.get('cust_id')
-    print(order_id,payment_id,cust_id)
+    #print(order_id,payment_id,cust_id)
     
     payment = Payment.objects.get(razorpay_order_id=order_id)
     payment.razorpay_payment_id=payment_id
@@ -253,8 +272,8 @@ def payment_completed(request):
     return redirect('orders') 
 
 def orders(request):
-    pass
+    order_placed=OrderPlaced.objects.filter(user=request.user)
 
-    return render(request,'ecommapp/orders.html')
+    return render(request,'ecommapp/orders.html',locals())
 
 

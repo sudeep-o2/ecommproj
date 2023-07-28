@@ -86,7 +86,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+                    <a class="nav-link" href="{% url 'cart' %}">Cart <span class="badge bg-secondary">{% if cart_count > 0  %} {{cart_count}} {% endif %}</span> </a>
                 </li>
 
                 <li class="nav-item">

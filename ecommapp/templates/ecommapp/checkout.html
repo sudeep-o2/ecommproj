@@ -24,7 +24,7 @@
         <div class="col-sm-4 offset-sm-1">
             <h4>Select Shipping Adress</h4>
             <hr>
-            <form action="" method="POST" id="myform">
+            <form action="" method="POST" id="my-form">
                 {% csrf_token %}
                 {% for ad in add %}
                 <div class="card">
@@ -68,16 +68,16 @@
         "amount": "{{razoramount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "Diary Dash",
-        "description": "Purchased",
+        "description": "Purchase Product    ",
         "image": "https://example.com/your_logo",
         "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response){
             console.log("success")
-            //var form = document.getElementById("my-form") 
+            var form = document.getElementById("my-form") 
             //alert(response.razorpay_payment_id);
             //alert(response.razorpay_order_id);
             //alert(response.razorpay_signature)
-            window.location.href = `http://localhost:8000/paymentcompleted?order_id=${response.razorpay_order_id}&payment_id=${response.razorpay_payment_id}&cust_id=${form.elements["custid"].value}`
+            window.location.href = `http://127.0.0.1:8000//paymentcompleted?order_id=${response.razorpay_order_id}&payment_id=${response.razorpay_payment_id}&cust_id=${form.elements["custid"].value}`
         },
         
         "theme": {
@@ -98,7 +98,7 @@
         rzp1.open();
         e.preventDefault();
     }
-    </script>
+</script>
         
 
 
