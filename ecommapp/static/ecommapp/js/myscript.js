@@ -104,7 +104,7 @@ $('.minus-wishlist').click(function(){
             prod_id:id
         },
         success:function(data){
-            window.location.href = `http://localhost:8000/product-detail/${id}`
+            window.location.href = `http://localhost:8000/wishlist`
         }
     })
 })

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render,redirect
-from . models import Product,Customer,Cart,Payment,OrderPlaced
+from . models import Product,Customer,Cart,Payment,OrderPlaced,WishList
 from . forms import CustomUserForm,CustomerForm
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
@@ -71,11 +71,29 @@ def categories(request,pk):
     context={'category_products':category_products}
     return render(request,'ecommapp/categories.html',context)
 
+def product_filter(request):
+    
+    q=request.GET.get('q') if request.GET.get('q')!=None else ''
+    productfilter=Product.objects.filter(Q(title__icontains=q))
+
+    return render(request,'ecommapp/productfilter.html',locals())
+
+
+
 def productDetail(request,pk):
 
+    # for cart count in navbar
+    cart_count=0
+    if request.user.is_authenticated:
+        cart_count=len(Cart.objects.filter(user=request.user))
+    #
+
     product_detail = Product.objects.get(id=pk)
-    context={'product_detail':product_detail}
-    return render(request,'ecommapp/detail.html',context)
+    #print(product_detail)
+    wishlist = WishList.objects.filter(Q(user=request.user) & Q(product=product_detail))
+    
+    
+    return render(request,'ecommapp/detail.html',locals())
 
 def profile(request):
 
@@ -275,5 +293,37 @@ def orders(request):
     order_placed=OrderPlaced.objects.filter(user=request.user)
 
     return render(request,'ecommapp/orders.html',locals())
+
+def wish_list(request):
+
+    wishlist_items=WishList.objects.filter(user=request.user)
+
+    return render(request,'ecommapp/wishlist.html',locals())
+
+
+def plus_wishlist(request):
+    prod_id=request.GET.get('prod_id')
+    product=Product.objects.get(id=prod_id)
+    WishList.objects.create(product=product,user=request.user)
+    
+    data={
+        'message':'Added to Wishlist'
+    }
+
+    return JsonResponse(data)
+
+
+def minus_wishlist(request):
+    prod_id=request.GET.get('prod_id')
+    product=Product.objects.get(id=prod_id)
+    w=WishList.objects.filter(product=product,user=request.user)
+    w.delete()
+
+    data={
+        'message':'Removed from Wishlist'
+    }
+
+    return JsonResponse(data)
+
 
 

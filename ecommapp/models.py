@@ -115,4 +115,6 @@ class OrderPlaced(models.Model):
     payment=models.ForeignKey(Payment,on_delete=models.CASCADE,default='')
     
 
-    
+class WishList(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)

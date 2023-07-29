@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block main%}
+
+<div class="container my-5">
+    <div class="row">
+        {% if wishlist_items %}
+        <h1 class="text-center mb-5">Wishlist</h1>
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-body">
+                    <h3>wishlist</h3>
+                    {% for item in wishlist_items %}
+                    <div class="row">
+                        <div class="col-sm-3 text-center align self-center"><a href="{% url 'product-detail' item.product.id %}"><img src="{{item.product.image.url}}" alt="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"></a></div>
+                        <div class="col-sm-9">
+                            <div>
+                                <h5> {{item.product.title}} </h5>
+                                <p class="mb-2 text-muted small"> {{item.product.description}} </p>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <a pid="{{item.product.id}}" class="minus-wishlist btn btn-sm btn-secondary mr-3" >Remove item</a>
+                                    <p class="mb-0"><span><strong> ₹ {{item.product.price}} </strong></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <hr class="text-muted">
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+        
+    </div>
+    {% else %}
+            <h1>No items in wishlist</h1>
+    {% endif %}
+   
+
+
+</div>
+
+{% endblock %}

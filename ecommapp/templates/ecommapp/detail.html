@@ -19,5 +19,14 @@
     <br>
     <div style="text-align: center;"><a href="{% url 'cart' %}" class="btn btn-info">Buynow
     </a>
+    </div><br>
+
+   {% if wishlist %}
+   <div></div>
+   {% else %}
+    <div style="text-align: center;">
+      <a  pid="{{product_detail.id}}" class="plus-wishlist" ><button style="background-color: red ; "> add to wishlist </button></a>
     </div>
+    {% endif %}
+    
 {% endblock %}
