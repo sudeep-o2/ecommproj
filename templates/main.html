@@ -90,7 +90,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'wishlist' %}">wishlist</a>
+                    <a class="nav-link" href="{% url 'wishlist' %}">wishlist <span class="badge bg-secondary">{% if wishlist_count > 0  %} {{wishlist_count}} {% endif %}</span> </a>
                 </li>
 
                 {% if request.user.is_authenticated == False %}

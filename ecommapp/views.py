@@ -18,6 +18,12 @@ def home(request):
         cart_count=len(Cart.objects.filter(user=request.user))
     #
 
+    #for wishlist count in navbar
+    wishlist_count=0
+    if request.user.is_authenticated:
+        wishlist_count=len(WishList.objects.filter(user=request.user))
+    #
+
     return render(request,'home.html',locals())
 
 def aboutus(request):
@@ -26,6 +32,13 @@ def aboutus(request):
     if request.user.is_authenticated:
         cart_count=len(Cart.objects.filter(user=request.user))
     #
+
+    #for wishlist count in navbar
+    wishlist_count=0
+    if request.user.is_authenticated:
+        wishlist_count=len(WishList.objects.filter(user=request.user))
+    #
+
     return render(request,'ecommapp/about.html',locals())
 
 
