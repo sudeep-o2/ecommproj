@@ -103,7 +103,8 @@ def productDetail(request,pk):
 
     product_detail = Product.objects.get(id=pk)
     #print(product_detail)
-    wishlist = WishList.objects.filter(Q(user=request.user) & Q(product=product_detail))
+    if request.user.is_authenticated:
+        wishlist = WishList.objects.filter(Q(user=request.user) & Q(product=product_detail))
     
     
     return render(request,'ecommapp/detail.html',locals())
