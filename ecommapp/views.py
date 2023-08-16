@@ -166,11 +166,17 @@ def add_to_cart(request):
     user=request.user
     product_id=request.GET.get('prod_id')
     product=Product.objects.get(id=product_id)
+
+    #cart=Cart.objects.get()
+
+   # if product in cart:
+    #    return redirect('cart')
+    #else:"""
     Cart.objects.create(
         user=user,
         product=product,
     )
-   
+
     return redirect('cart')
 
 
@@ -332,6 +338,7 @@ def minus_wishlist(request):
     product=Product.objects.get(id=prod_id)
     w=WishList.objects.filter(product=product,user=request.user)
     w.delete()
+    return redirect('wishlist')
 
     data={
         'message':'Removed from Wishlist'

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+Password='Qwerty12345'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,10 +78,21 @@ WSGI_APPLICATION = 'ecomm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecomm',
+        'USER': 'srs',
+        'PASSWORD': Password,
+        'HOST': 'database-2.cjshma08djdz.eu-north-1.rds.amazonaws.com',
+        'PORT': '3306',
     }
 }
 
@@ -120,8 +132,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS=[
+    BASE_DIR / 'ecommapp/static'
+]
 MEDIA_URL= '/media/'
-MEDIA_ROOT= BASE_DIR / 'media'
+MEDIA_ROOT= BASE_DIR / 'media/product'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
