@@ -83,7 +83,7 @@ class Customer(models.Model):
     city=models.CharField(max_length=100)
     pincode=models.IntegerField()
     state=models.CharField(choices=STATE_CHOICES,max_length=30)
-    mobileno=models.IntegerField()
+    mobileno=models.CharField(max_length=12)
 
     def __str__(self):
         return self.name

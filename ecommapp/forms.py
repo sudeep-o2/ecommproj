@@ -18,7 +18,7 @@ class CustomerForm(forms.ModelForm):
             'locality':forms.TextInput(attrs={'class':'form-control'}),
             'city':forms.TextInput(attrs={'class':'form-control'}),
             'pincode':forms.NumberInput(attrs={'class':'form-control'}),
-            'state':forms.Select(attrs={'class':'form-control'}),
+            'state':forms.Select(attrs={'class':'form-control'}),   
             'mobileno':forms.NumberInput(attrs={'class':'form-control'}),
         }
 

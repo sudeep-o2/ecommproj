@@ -167,18 +167,23 @@ def add_to_cart(request):
     product_id=request.GET.get('prod_id')
     product=Product.objects.get(id=product_id)
 
-    #cart=Cart.objects.get()
+    cart=Cart.objects.all()
 
-   # if product in cart:
-    #    return redirect('cart')
-    #else:"""
-    Cart.objects.create(
-        user=user,
-        product=product,
-    )
+    ct=0
+    for c in cart: 
+        if c.product==product:
+            ct+=1
+    if ct!=1:
+        Cart.objects.create(
+                user=user,
+                product=product,
+            )
+        return redirect('cart')
+    else:
+        
+        return redirect('cart')
 
-    return redirect('cart')
-
+        
 
 def show_cart(request):
     user=request.user
